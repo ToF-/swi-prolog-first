@@ -19,12 +19,19 @@ likes(caroline, dandelion).
 
 likes(caroline, Dish) :-
     dish(Dish)
-    , forall(includes(Dish, Ingredient), likes(caroline, Ingredient)).
+    , not(dislikes(caroline, Dish)).
+
+dislikes(caroline, Dish) :-
+    dish(Dish)
+    , includes(Dish, Ingredient)
+    , not(likes(caroline, Ingredient))
+    .
 
 test(likes(caroline,salad)).
 test(not(likes(caroline,soup))).
 test(not(likes(caroline,beef))). % sanity check
 test(not(likes(caroline,zuchini_with_meat))).
+test(dislikes(caroline, soup)).
 
 fail(Test) :-
     test(Test)
